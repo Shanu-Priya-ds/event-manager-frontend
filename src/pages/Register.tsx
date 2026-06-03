@@ -1,5 +1,8 @@
 import { useState, type ChangeEvent, type SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import useApi from "../hooks/useApi";
+import { useAuth } from "../context/AuthContext";
+import type { LoginResponse } from "../types/types";
 
 function Register(){
 
@@ -9,11 +12,26 @@ function Register(){
         password:""
     });
 
+    const {data, loading, error, execute } = useApi<LoginResponse>({
+        url:"/auth/register",
+        method: "POST",
+        autoFetch: false
+    });
+
+    const auth = useAuth();
+
     const navigate = useNavigate();
-    function handleFormSubmit(e:SyntheticEvent){
+    async function handleFormSubmit(e:SyntheticEvent){
         e.preventDefault();
-        
-        navigate("/home");
+        //validate input
+
+        const response = await execute(formData);
+          if (response) {
+            auth.setAuthData(response.user, response.token);
+            console.log("Registration Success..Redirecting to home page");
+            navigate("/home");
+        }
+       
     }
     function handleChange(e:ChangeEvent<HTMLInputElement>){
         const {name,value} = e.target;
@@ -23,8 +41,8 @@ function Register(){
         <h1>Register Events</h1>
         <form onSubmit={handleFormSubmit}>
             <input type="text" name="username" onChange={handleChange} value={formData.username} placeholder="Enter username"/>
-            <input type="text" name="password" value={formData.email} placeholder="Enter Email"/>
-            <input type="password" name="email" value={formData.password} placeholder="Enter Password"/>
+            <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Email"/>
+            <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Password"/>
             <input type="password" placeholder="Confirm Password"/>
             <button type="submit">Register</button>
         </form>
