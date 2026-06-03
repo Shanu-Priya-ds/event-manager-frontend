@@ -1,32 +1,33 @@
 import { useState, type ChangeEvent, type SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import useApi from "../hooks/useApi";
+import type { LoginResponse } from "../types/types";
 
 function Login() {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const auth = useAuth();
 
+    const { loading, error, execute } = useApi<LoginResponse>({
+        url: "/auth/login",
+        method: "POST",
+        postData: null,
+        autoFetch: false
+    });
+
     async function handleSubmit(e: SyntheticEvent) {
         e.preventDefault();
-        setError(null);
-        setLoading(true);
 
-        try {
-            await auth.login(formData);
+        const response = await execute(formData);
+        if (response) {
+            auth.setAuthData(response.user, response.token);
             console.log("Login Success..Redirecting to home page");
             navigate("/home");
-        } catch (err) {
-            console.log(err);
-            setError(err instanceof Error ? err.message : "Login failed");
-        } finally {
-            setLoading(false);
         }
     }
 
