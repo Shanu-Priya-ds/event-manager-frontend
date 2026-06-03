@@ -4,9 +4,8 @@ export interface ApiState<T>{
     error: string | null
 }
 
-export interface ApitInputProps<T>{
+export interface ApitInputProps{
     url:string;
     method?:"GET" | "POST" | "PUT" | "DELETE";
-    postData: T | null;
-   autoFetch:boolean;
+    autoFetch:boolean;
 }

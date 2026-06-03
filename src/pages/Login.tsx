@@ -16,7 +16,6 @@ function Login() {
     const { loading, error, execute } = useApi<LoginResponse>({
         url: "/auth/login",
         method: "POST",
-        postData: null,
         autoFetch: false
     });
 

@@ -1,24 +1,11 @@
 import  { createContext, useContext, useState, type ReactNode } from "react";
-import type { AuthContextType, LoginResponse, User } from "../types/types";
+import type { AuthContextType, User } from "../types/types";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({children}:{children:ReactNode}){
     const[user, setUser]  = useState<User | null>(null);
     const[token, setToken] = useState<string|null>(null);
-
-    async function login(data:LoginResponse){
-        try {
-            setUser(data.user);
-            setToken(data.token);
-            console.log(data);
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
-        } catch (error) {
-            console.error("Login failed:", error);
-            throw error;
-        }
-    }
 
     function logout(){
         setUser(null);
@@ -34,7 +21,7 @@ export function AuthProvider({children}:{children:ReactNode}){
         localStorage.setItem("user", JSON.stringify(user));
     }
 
-    return(<AuthContext.Provider value={{user, token, login, logout, setAuthData}}>
+    return(<AuthContext.Provider value={{user, token, logout, setAuthData}}>
         {children}
     </AuthContext.Provider>)
 }
