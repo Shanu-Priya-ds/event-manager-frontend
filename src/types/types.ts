@@ -1,7 +1,7 @@
 export interface AuthContextType{
     user:User | null,
     token:string | null,
-    login:(loginCredential:LoginCredentials)=>void,
+    login:(loginCredential:LoginCredentials)=>Promise<void>,
     logout:()=>void
 }
 export interface User{
