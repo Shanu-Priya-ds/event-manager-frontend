@@ -23,6 +23,7 @@ function Login() {
             console.log("Login Success..Redirecting to home page");
             navigate("/home");
         } catch (err) {
+            console.log(err);
             setError(err instanceof Error ? err.message : "Login failed");
         } finally {
             setLoading(false);
