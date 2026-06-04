@@ -8,10 +8,12 @@ import Home from "./pages/Home";
 import MyRegistrations from './pages/MyRegistrations';
 import Dashboard from './pages/Dashboard';
 import EventDetails from './pages/EventDetails';
+import Navbar from './components/Navbar';
 function App() {
   return (
     <>
       <Toaster position="bottom-right" />
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Welcome/>} />
         <Route path="/register" element={<Register/>}/>

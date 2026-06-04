@@ -4,7 +4,7 @@
 // Has Create, Edit, Delete actions
 // You never leave this page to manage your events
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState} from "react";
 import Dialog from "../components/utils/Dialog";
 import EventForm from "../components/event/EventForm";
 import useApi from "../hooks/useApi";

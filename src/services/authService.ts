@@ -12,16 +12,3 @@ export async function loginService(loginCredentials:LoginCredentials):Promise<Lo
         throw new Error(errorMsg);
     }
 }
-
-export function logout(){
-
-}
-
-
-export async function registerUser(){
-    try{
-        const data = await axiosInstance.post("/auth/register",)
-    }catch(error){
-
-    }
-}
