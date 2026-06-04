@@ -1,29 +1,42 @@
 import { useEffect, useState, type ChangeEvent, type SyntheticEvent } from "react";
 import type { EventModel } from "../../types/types";
 import useApi from "../../hooks/useApi";
-import toast from "react-hot-toast";
-//import toast from "react-hot-toast/headless";
+import { formatDate } from "../../utils/utils";
 
-function EventForm({onClose}:{onClose:()=>void}){
-     
+function EventForm({event, onClose}:{event?: EventModel | null, onClose:()=>void}){
+
     const [formData, setFormData] = useState({
         title:"",
         description:"",
         venue:"",
-        dateTime:""
+        dateTime:formatDate(new Date()) //set current date
     })
-    const { data, error, execute } = useApi<EventModel>({
-        url: "/events",
-        method: "POST",
+
+    const isEditing = !!event;
+
+    const { data, execute } = useApi<EventModel>({
+        url: isEditing ? `/events/${event?._id}` : "/events",
+        method: isEditing ? "PUT" : "POST",
         autoFetch: false,
-        successMsg:"Event created successfully."
+        successMsg: isEditing ? "Event updated successfully." : "Event created successfully."
     });
+
+    useEffect(() => {
+        if (event) {
+            const dateObj = new Date(event.dateTime);
+            const formattedDateTime = formatDate(dateObj);
+            setFormData({
+                title: event.title,
+                description: event.description,
+                venue: event.venue,
+                dateTime: formattedDateTime
+            });
+        }
+    }, [event]);
 
     useEffect(()=>{
         if(data) {
-            toast.success("Event Created successfully")
             onClose();
-
         }
     },[data, onClose]);
 
