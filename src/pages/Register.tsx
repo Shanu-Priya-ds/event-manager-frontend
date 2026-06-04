@@ -15,7 +15,8 @@ function Register(){
     const { execute } = useApi<LoginResponse>({
         url:"/auth/register",
         method: "POST",
-        autoFetch: false
+        autoFetch: false,
+        successMsg:"Registation is complete and loggedin successfully."
     });
 
     const auth = useAuth();

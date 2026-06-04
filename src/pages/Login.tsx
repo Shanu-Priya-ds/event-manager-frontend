@@ -16,7 +16,8 @@ function Login() {
     const { loading, error, execute } = useApi<LoginResponse>({
         url: "/auth/login",
         method: "POST",
-        autoFetch: false
+        autoFetch: false,
+        successMsg:"You are logged In now."
     });
 
     async function handleSubmit(e: SyntheticEvent) {

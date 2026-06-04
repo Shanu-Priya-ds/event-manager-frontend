@@ -17,7 +17,7 @@ function Dashboard() {
         {isOpen &&
             <Dialog isOpen={true} title="Create Event"
                 onClose={() => setIsOpen(false)}
-                children={<EventForm />}>
+                children={<EventForm onClose={()=> setIsOpen(false)} />}>
 
             </Dialog>
         }

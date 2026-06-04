@@ -10,7 +10,8 @@ function EventDetails() {
     const { data: event, loading, error } = useApi<EventModel>({
         url: `/events/${id}`,
         method: "GET",
-        autoFetch: true
+        autoFetch: true,
+        successMsg:""
     });
 
     if (loading) return <div><p>Loading event details...</p></div>;

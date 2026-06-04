@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import axiosInstance from "../services/api";
 import type { ApiState, ApitInputProps } from "../types/apiTypes";
 
-function useApi<T>({ url, method, autoFetch }: ApitInputProps) {
+function useApi<T>({ url, method, autoFetch, successMsg }: ApitInputProps) {
     const [state, setState] = useState<ApiState<T>>({
         data: null,
         loading: false,
@@ -41,6 +42,19 @@ function useApi<T>({ url, method, autoFetch }: ApitInputProps) {
         if (autoFetch)
             execute();
     }, [url, autoFetch, execute]);
+
+    useEffect(() => {
+        if (state.error) {
+            toast.error(state.error);
+        }
+    }, [state.error]);
+
+    useEffect(() => {
+        if (state.data && !state.loading && successMsg) {
+            toast.success(successMsg);
+        }
+    }, [state.data, state.loading]);
+
     return { ...state, execute };
 }
 export default useApi;

@@ -10,7 +10,8 @@ function Home(){
     const{data} = useApi<EventModel>({
         url:"/events/all",
         method:"GET",
-        autoFetch:true
+        autoFetch:true,
+        successMsg:""
     });
 
     const events = data? data as EventModel[] : [];
