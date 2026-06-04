@@ -34,3 +34,9 @@ export interface EventModel{
     attendeeCount:number;
     attendees?:User[];
 }
+
+export interface MyRegistrationsRes{
+    _id: string;
+    userId:string;
+    eventId:EventModel;
+}
