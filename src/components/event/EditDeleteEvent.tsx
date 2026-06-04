@@ -17,14 +17,14 @@ function EditDeleteEvent({ event, onEdit, onDeleted }: EditDeleteEventProps) {
     const handleDelete = () => {
         if (confirm("Are you sure you want to delete this event?")) {
             deleteEvent();
-            //  if(data!=null) onDeleted(); // Callback to refresh events list in parent
+             // if(data!=null) onDeleted(); // Callback to refresh events list in parent
         }
     }
     useEffect(() => {
         if (data) {
             onDeleted();
         }
-    }, [data, onDeleted]);
+    }, [data]);
 
     return (
         <div className="flex gap-3">

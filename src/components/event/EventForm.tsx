@@ -3,7 +3,7 @@ import type { EventModel } from "../../types/types";
 import useApi from "../../hooks/useApi";
 import { formatDate } from "../../utils/utils";
 
-function EventForm({event, onClose}:{event?: EventModel | null, onClose:()=>void}){
+function EventForm({event, onClose, onEventSaved}:{event?: EventModel | null, onClose:()=>void, onEventSaved:(eventData:EventModel)=>void}){
 
     const [formData, setFormData] = useState({
         title:"",
@@ -36,9 +36,10 @@ function EventForm({event, onClose}:{event?: EventModel | null, onClose:()=>void
 
     useEffect(()=>{
         if(data) {
+            onEventSaved?.(data as EventModel);
             onClose();
         }
-    },[data, onClose]);
+    },[data]);
 
     function saveEvent(e:SyntheticEvent){
         e.preventDefault();

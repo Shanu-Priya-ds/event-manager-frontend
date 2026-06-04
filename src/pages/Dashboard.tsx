@@ -4,7 +4,7 @@
 // Has Create, Edit, Delete actions
 // You never leave this page to manage your events
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Dialog from "../components/utils/Dialog";
 import EventForm from "../components/event/EventForm";
 import useApi from "../hooks/useApi";
@@ -16,19 +16,19 @@ function Dashboard() {
     const [editingEvent, setEditingEvent] = useState<EventModel | null>(null);
 
     const [myEvents, setMyEvents] = useState<EventModel[]>([]);
-    
-    const {data} = useApi<EventModel>({
-        url:"/events",
-        method:"GET",
-        autoFetch:true,
-        successMsg:""
+
+    const { data } = useApi<EventModel>({
+        url: "/events",
+        method: "GET",
+        autoFetch: true,
+        successMsg: ""
     })
 
-   // const myEvents = data? data as EventModel[] :[];
-    useEffect(()=>{
-        if(data)
-        setMyEvents(data as EventModel[]);
-    },[data]);
+    // const myEvents = data? data as EventModel[] :[];
+    useEffect(() => {
+        if (data)
+            setMyEvents(data as EventModel[]);
+    }, [data]);
 
     const handleEdit = (event: EventModel) => {
         setEditingEvent(event);
@@ -40,29 +40,40 @@ function Dashboard() {
         setEditingEvent(null);
     };
 
-    const handleDeleted = (eventId:string)=>{
-      
-        //refresh the list - emove the deleted event from the list
-        setMyEvents(prev=> prev.filter(eventModel=> eventModel._id!== eventId));
-    }
-    return (<>
-    <div>
-    View your events managed by you!
-        <button onClick={() => { setEditingEvent(null); setIsOpen(true); }}>Add Event</button>
-        {isOpen &&
-            <Dialog isOpen={true} title={editingEvent ? "Edit Event" : "Create Event"}
-                onClose={handleCloseDialog}
-                children={<EventForm event={editingEvent} onClose={handleCloseDialog} />}>
+    const handleDeleted = (eventId: string) => {
 
-            </Dialog>
-        }
+        //refresh the list - emove the deleted event from the list
+        setMyEvents(prev => prev.filter(eventModel => eventModel._id !== eventId));
+    }
+    // Dashboard
+   const handleEventSaved = (savedEvent: EventModel) => {
+    setMyEvents(prev => 
+        editingEvent 
+            ? prev.map(e => e._id === savedEvent._id ? savedEvent : e)  // Edit
+            : [...prev, savedEvent]  // Add
+    );
+};
+
+
+    return (<>
+        <div>
+            View your events managed by you!
+            <button onClick={() => { setEditingEvent(null); setIsOpen(true); }}>Add Event</button>
+            {isOpen &&
+                <Dialog isOpen={true} title={editingEvent ? "Edit Event" : "Create Event"}
+                    onClose={handleCloseDialog}
+                    children={<EventForm onEventSaved={handleEventSaved} 
+                    event={editingEvent} onClose={handleCloseDialog} />}>
+
+                </Dialog>
+            }
         </div>
         <div>
             {myEvents &&
-            myEvents.map(eventModel=><div key={eventModel._id}>
-                <EventCard key={eventModel._id} onEdit={()=>handleEdit(eventModel)}
-                 onDeleted={()=>handleDeleted(eventModel._id)} eventModel={eventModel}/>
-            </div>)}
+                myEvents.map(eventModel => <div key={eventModel._id}>
+                    <EventCard key={eventModel._id} onEdit={() => handleEdit(eventModel)}
+                        onDeleted={() => handleDeleted(eventModel._id)} eventModel={eventModel} />
+                </div>)}
         </div>
     </>)
 }
