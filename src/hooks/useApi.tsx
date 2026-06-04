@@ -32,12 +32,10 @@ function useApi<T>({ url, method, autoFetch, successMsg }: ApitInputProps) {
             } else if (error instanceof Error) {
                 errorMessage = error.message;
             }
-
             setState({ data: null, loading: false, error: errorMessage });
             return null;
         }
     }, [url, method]);
-
     useEffect(() => {
         if (autoFetch)
             execute();
@@ -53,7 +51,7 @@ function useApi<T>({ url, method, autoFetch, successMsg }: ApitInputProps) {
         if (state.data && !state.loading && successMsg) {
             toast.success(successMsg);
         }
-    }, [state.data, state.loading]);
+    }, [state.data, state.loading, successMsg]);
 
     return { ...state, execute };
 }
