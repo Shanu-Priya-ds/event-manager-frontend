@@ -5,7 +5,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({children}:{children:ReactNode}){
     const[user, setUser]  = useState<User | null>(null);
-    const[token, setToken] = useState<string|null>(null);
+    const[token, setToken] = useState<string|null>(localStorage.getItem("token"));
 
     function logout(){
         setUser(null);
