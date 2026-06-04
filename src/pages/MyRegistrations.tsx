@@ -7,7 +7,8 @@ function MyRegistrations(){
     const {data} = useApi<MyRegistrationsRes>({
         url:"/registrations",
         method:"GET",
-        autoFetch:true
+        autoFetch:true,
+        successMsg:""
     }); 
 
     const RegistrationList = data? data as MyRegistrationsRes[]:[];

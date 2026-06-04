@@ -40,3 +40,15 @@ export interface MyRegistrationsRes{
     userId:string;
     eventId:EventModel;
 }
+
+export interface EditDeleteEventProps {
+    event: EventModel;
+    onEdit: (event: EventModel) => void;
+    onDeleted: () => void;
+}
+
+export interface EventCardProps {
+    eventModel: EventModel;
+    onEdit?: (event: EventModel) => void;    // Optional
+    onDeleted?: () => void;    // Optional
+}

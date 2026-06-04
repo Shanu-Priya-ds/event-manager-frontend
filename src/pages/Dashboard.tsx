@@ -4,18 +4,19 @@
 // Has Create, Edit, Delete actions
 // You never leave this page to manage your events
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dialog from "../components/utils/Dialog";
 import EventForm from "../components/event/EventForm";
 import useApi from "../hooks/useApi";
 import type { EventModel } from "../types/types";
 import EventCard from "../components/event/EventCard";
-import { Pencil, Trash2 } from "lucide-react"
 
 function Dashboard() {
     const [isOpen, setIsOpen] = useState(false);
     const [editingEvent, setEditingEvent] = useState<EventModel | null>(null);
 
+    const [myEvents, setMyEvents] = useState<EventModel[]>([]);
+    
     const {data} = useApi<EventModel>({
         url:"/events",
         method:"GET",
@@ -23,7 +24,11 @@ function Dashboard() {
         successMsg:""
     })
 
-    const myEvents = data? data as EventModel[] :[];
+   // const myEvents = data? data as EventModel[] :[];
+    useEffect(()=>{
+        if(data)
+        setMyEvents(data as EventModel[]);
+    },[data]);
 
     const handleEdit = (event: EventModel) => {
         setEditingEvent(event);
@@ -35,6 +40,11 @@ function Dashboard() {
         setEditingEvent(null);
     };
 
+    const handleDeleted = (eventId:string)=>{
+      
+        //refresh the list - emove the deleted event from the list
+        setMyEvents(prev=> prev.filter(eventModel=> eventModel._id!== eventId));
+    }
     return (<>
     <div>
     View your events managed by you!
@@ -50,9 +60,8 @@ function Dashboard() {
         <div>
             {myEvents &&
             myEvents.map(eventModel=><div key={eventModel._id}>
-                <EventCard eventModel={eventModel}/>
-                <Pencil onClick={() => handleEdit(eventModel)} className="w-4 h-4 cursor-pointer" />
-                <Trash2 className="w-4 h-4 cursor-pointer" />
+                <EventCard key={eventModel._id} onEdit={()=>handleEdit(eventModel)}
+                 onDeleted={()=>handleDeleted(eventModel._id)} eventModel={eventModel}/>
             </div>)}
         </div>
     </>)

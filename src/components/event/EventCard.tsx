@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import type { EventModel } from "../../types/types";
+import type { EventCardProps } from "../../types/types";
+import EditDeleteEvent from "./EditDeleteEvent";
 
-function EventCard({eventModel}:{eventModel:EventModel}){
+function EventCard({eventModel, onEdit, onDeleted}:EventCardProps){
     const navigate = useNavigate();
     function handlePageRedirect(){
         navigate(`/eventDetails/${eventModel._id}`);
@@ -12,6 +13,8 @@ function EventCard({eventModel}:{eventModel:EventModel}){
         <p>{eventModel.description}</p>
         <p>{new Date(eventModel.dateTime)?.toISOString()}</p>
         <p>{eventModel.venue}</p>
+       {  onEdit && onDeleted &&
+       <EditDeleteEvent onDeleted={onDeleted} onEdit={onEdit} event={eventModel}></EditDeleteEvent> }
     </div>)
 
 }
