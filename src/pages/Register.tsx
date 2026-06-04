@@ -12,7 +12,7 @@ function Register(){
         password:""
     });
 
-    const {data, loading, error, execute } = useApi<LoginResponse>({
+    const { execute } = useApi<LoginResponse>({
         url:"/auth/register",
         method: "POST",
         autoFetch: false

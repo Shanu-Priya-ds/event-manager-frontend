@@ -1,5 +1,5 @@
 export interface ApiState<T>{
-    data: T | null;
+    data: T | T[] | null;
     loading: boolean;
     error: string | null
 }

@@ -20,3 +20,17 @@ export interface LoginResponse{
     user:User,
     token: string
 }
+
+export interface EventModel{
+    _id:string;
+    title:string;
+    description:string;
+    imageUrl:string;
+    venue:string;
+    dateTime:string;
+    organizerId:string;
+    organizerName:string;
+    capacity:number;
+    attendeeCount:number;
+    attendees?:User[];
+}
