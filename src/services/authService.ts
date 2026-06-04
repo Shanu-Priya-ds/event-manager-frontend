@@ -18,6 +18,10 @@ export function logout(){
 }
 
 
-export function registerUser(){
+export async function registerUser(){
+    try{
+        const data = await axiosInstance.post("/auth/register",)
+    }catch(error){
 
+    }
 }
