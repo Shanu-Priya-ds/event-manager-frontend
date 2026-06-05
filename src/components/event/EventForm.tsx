@@ -78,29 +78,29 @@ function EventForm({ event, onClose, onEventSaved }: { event?: EventModel | null
     }
     return (<div>
         <form onSubmit={saveEvent}>
-            <div className="flex flex-col gap-1 mb-2">
-                <label>Title</label>
-                <input className=" px-2 bg-gray-100 rounded-md" required type="text" name="title" onChange={handleFormChange} value={formData.title} placeholder="Event Title" />
+            <div className="flex flex-col gap-1 mb-4">
+                <label className="font-medium text-gray-700 text-sm">Title</label>
+                <input className="px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-colors" required type="text" name="title" onChange={handleFormChange} value={formData.title} placeholder="Event Title" />
             </div>
-            <div className="flex flex-col gap-1 mb-2">
-                <label>Description</label>
-                <textarea className="px-2 bg-gray-100 rounded-md" value={formData.description} name="description" onChange={handleFormChange} placeholder="Enter event description"></textarea>
+            <div className="flex flex-col gap-1 mb-4">
+                <label className="font-medium text-gray-700 text-sm">Description</label>
+                <textarea className="px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-colors" value={formData.description} name="description" onChange={handleFormChange} placeholder="Enter event description"></textarea>
             </div>
-            <div className="flex flex-col gap-1 mb-2">
-                <label>Venue</label>
-                <input className="px-2 bg-gray-100 rounded-md" required value={formData.venue} name="venue" onChange={handleFormChange} type="text" placeholder="Venue" />
+            <div className="flex flex-col gap-1 mb-4">
+                <label className="font-medium text-gray-700 text-sm">Venue</label>
+                <input className="px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-colors" required value={formData.venue} name="venue" onChange={handleFormChange} type="text" placeholder="Venue" />
             </div>
-            <div className="flex flex-col gap-1 mb-2">
-                <label>Date and Time</label>
-                <input className="px-2 bg-gray-100 rounded-md" required type="datetime-local" name="dateTime" value={formData.dateTime} onChange={handleFormChange} />
+            <div className="flex flex-col gap-1 mb-4">
+                <label className="font-medium text-gray-700 text-sm">Date and Time</label>
+                <input className="px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-colors" required type="datetime-local" name="dateTime" value={formData.dateTime} onChange={handleFormChange} />
             </div>
-            <div className="flex flex-col gap-1 mb-2">
-                <label>Upload Image</label>
-                <input className="bg-gray-100 rounded-md" type="file" accept="image/*"
+            <div className="flex flex-col gap-1 mb-4">
+                <label className="font-medium text-gray-700 text-sm">Upload Image</label>
+                <input className="px-3 py-2 bg-white border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-colors cursor-pointer file:cursor-pointer file:border-0 file:bg-gray-100 file:px-3 file:py-1 file:rounded file:text-sm file:font-medium file:text-gray-700 file:hover:bg-gray-200" type="file" accept="image/*"
                     onChange={handleImageUpload} disabled={uploading}
                     placeholder="Upload Event Image" />
             </div>
-            <button className="px-2 py-0.5 mt-2 w-full bg-gray-300 cursor-pointer rounded-md" type="submit" disabled={uploading}>Save</button>
+            <button className="px-4 py-2 mt-4 w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" type="submit" disabled={uploading}>{uploading ? "Uploading..." : "Save"}</button>
         </form>
     </div>);
 }
