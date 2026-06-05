@@ -24,22 +24,19 @@ function Navbar(){
             <div className="flex justify-between items-center">
                 <h5 className="text-l font-bold">Event Management System</h5>
                 <div className="flex gap-2">
-                    <button
-                        onClick={()=> navigate("/home")}
-                        className="hover:bg-gray-300 text-xs p-1 cursor-pointer rounded transition-colors duration-200"
-                    >
+                    <button onClick={()=> navigate("/home")}
+                        className="hover:bg-gray-300 text-xs p-1 cursor-pointer rounded transition-colors duration-200">
                         Home
                     </button>
-                    <button
-                        onClick={()=> navigate("/dashboard")}
-                        className="hover:bg-gray-300 text-xs p-1 cursor-pointer cursor-pointer rounded transition-colors duration-200"
-                    >
+                    <button  onClick={()=> navigate("/dashboard")}
+                        className="hover:bg-gray-300 text-xs p-1 cursor-pointer
+                         cursor-pointer rounded transition-colors duration-200">
                         My events
                     </button>
                     <button
                         onClick={()=> navigate("/myRegistrations")}
-                        className="hover:bg-gray-300 text-xs p-1 rounded cursor-pointer transition-colors duration-100"
-                    >
+                        className="hover:bg-gray-300 text-xs p-1 rounded 
+                        cursor-pointer transition-colors duration-100">
                         My Registrations
                     </button>
                 </div>

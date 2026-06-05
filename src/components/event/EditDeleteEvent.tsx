@@ -28,13 +28,15 @@ function EditDeleteEvent({ event, onEdit, onDeleted }: EditDeleteEventProps) {
 
     return (
         <div className="flex gap-3">
-            <Pencil
-                onClick={() => onEdit(event)}
-                className="w-4 h-4 cursor-pointer hover:text-blue-600"
-            />
+            <div title="Edit event">
+                <Pencil
+                    onClick={() => onEdit(event)}
+                    className="w-3 h-3 cursor-pointer hover:text-blue-600"
+                />
+            </div>
             <Trash2
                 onClick={handleDelete}
-                className="w-4 h-4 cursor-pointer hover:text-red-600"
+                className="w-3 h-3 cursor-pointer hover:text-red-600"
             />
         </div>
     );

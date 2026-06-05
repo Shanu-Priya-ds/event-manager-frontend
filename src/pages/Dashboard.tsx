@@ -56,9 +56,9 @@ function Dashboard() {
 
 
     return (<>
-        <div>
-            View your events managed by you!
-            <button onClick={() => { setEditingEvent(null); setIsOpen(true); }}>Add Event</button>
+        <div className="flex justify-end m-4 ">
+            <button className="bg-gray-400 text-xs cursor-pointer text-white px-1 py-1 rounded"
+            onClick={() => { setEditingEvent(null); setIsOpen(true); }}>Add Event</button>
             {isOpen &&
                 <Dialog isOpen={true} title={editingEvent ? "Edit Event" : "Create Event"}
                     onClose={handleCloseDialog}
@@ -68,7 +68,7 @@ function Dashboard() {
                 </Dialog>
             }
         </div>
-        <div>
+        <div className="flex flex-wrap gap-3 m-4">
             {myEvents &&
                 myEvents.map(eventModel => <div key={eventModel._id}>
                     <EventCard key={eventModel._id} onEdit={() => handleEdit(eventModel)}
