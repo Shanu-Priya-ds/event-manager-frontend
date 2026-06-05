@@ -22,14 +22,14 @@ function Dialog({ isOpen, onClose, title, children }: DialogInputProps) {
                         <DialogTitle className="text-lg font-semibold">{title}</DialogTitle>
                         <button 
                             onClick={onClose}
-                            className="text-gray-500 hover:text-gray-700 font-bold text-xl"
+                            className="text-gray-500 cursor-pointer hover:text-gray-700 font-bold text-xl"
                         >
                             ✕
                         </button>
                     </div>
 
                     {/* Content */}
-                    <div className="p-4 max-h-96 overflow-auto">{children}</div>
+                    <div className="p-4 max-h-100 overflow-auto">{children}</div>
                 </DialogPanel>
             </div>
         </HeadlessDialog>

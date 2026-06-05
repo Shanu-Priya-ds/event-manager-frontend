@@ -12,8 +12,10 @@ function MyRegistrations(){
     }); 
 
     const RegistrationList = data? data as MyRegistrationsRes[]:[];
-    return(<>Event registered
-    {RegistrationList.map(registeredEvent=> <EventCard key={registeredEvent._id} eventModel={registeredEvent.eventId}/>)}</>)
+    return(<div className="flex gap-2 m-3">
+    {RegistrationList.map(registeredEvent=> 
+    <EventCard key={registeredEvent._id} eventModel={registeredEvent.eventId}/>)}
+    </div>)
 }
 
 export default MyRegistrations;
