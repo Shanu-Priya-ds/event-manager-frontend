@@ -2,6 +2,8 @@ import { useEffect, useState, type ChangeEvent, type SyntheticEvent } from "reac
 import type { EventModel } from "../../types/types";
 import useApi from "../../hooks/useApi";
 import { formatDate } from "../../utils/utils";
+import { uploadImage } from "../../services/uploadService";
+import toast from "react-hot-toast";
 
 function EventForm({event, onClose, onEventSaved}:{event?: EventModel | null, onClose:()=>void, onEventSaved:(eventData:EventModel)=>void}){
 
@@ -9,9 +11,14 @@ function EventForm({event, onClose, onEventSaved}:{event?: EventModel | null, on
         title:"",
         description:"",
         venue:"",
-        dateTime:formatDate(new Date()) //set current date
-    })
+        dateTime:formatDate(new Date()), //set current date
+        imageUrl:""
+    });
 
+    const [uploading, setUploading] = useState(false);
+    
+    //true if an event object exists (editing mode)
+    //false if event is null/undefined (creating new event)
     const isEditing = !!event;
 
     const { data, execute } = useApi<EventModel>({
@@ -29,7 +36,8 @@ function EventForm({event, onClose, onEventSaved}:{event?: EventModel | null, on
                 title: event.title,
                 description: event.description,
                 venue: event.venue,
-                dateTime: formattedDateTime
+                dateTime: formattedDateTime,
+                imageUrl: event.imageUrl
             });
         }
     }, [event]);
@@ -40,6 +48,22 @@ function EventForm({event, onClose, onEventSaved}:{event?: EventModel | null, on
             onClose();
         }
     },[data]);
+
+    async function handleImageUpload(e: ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploading(true);
+        try {
+            const imageUrl = await uploadImage(file);
+            setFormData(prev => ({ ...prev, imageUrl }));
+        } catch (error) {
+            console.error("Failed to upload image:", error);
+            toast.error("Failed to upload image. Please try again.");
+        } finally {
+            setUploading(false);
+        }
+    }
 
     function saveEvent(e:SyntheticEvent){
         e.preventDefault();
@@ -58,7 +82,10 @@ function EventForm({event, onClose, onEventSaved}:{event?: EventModel | null, on
          <textarea value={formData.description} name="description" onChange={handleFormChange}  placeholder="Enter event description"></textarea>
          <input required value={formData.venue} name="venue" onChange={handleFormChange}  type="text" placeholder="Venue"/>
          <input required type="datetime-local" name="dateTime" value={formData.dateTime} onChange={handleFormChange}/>
-         <button type="submit">Save</button>
+
+         <input type="file"accept="image/*" onChange={handleImageUpload} disabled={uploading}
+            placeholder="Upload Event Image"/>
+        <button type="submit" disabled={uploading}>Save</button>
     </form>
     </div>);
 }

@@ -13,7 +13,7 @@ function Login() {
     const navigate = useNavigate();
     const auth = useAuth();
 
-    const { loading, error, execute } = useApi<LoginResponse>({
+    const { loading, execute } = useApi<LoginResponse>({
         url: "/auth/login",
         method: "POST",
         autoFetch: false,
@@ -46,7 +46,7 @@ function Login() {
 
                 <form className="bg-white border border-gray-200 rounded-xl p-6" onSubmit={handleSubmit}>
                     <div className="mb-4 ">
-                         <label className="block text-sm font-medium mb-1.5">Email address</label>
+                        <label className="block text-sm font-medium mb-1.5">Email address</label>
                         <input name="email" className="rounded-l border border-gray-200 px-1"
                             value={formData.email} onChange={handleFormChange} type="text" placeholder="enter email" />
 
