@@ -13,12 +13,14 @@ function Navbar(){
     const navigate = useNavigate();
     const {logout, user} = useAuth();
 
+
     const redirectToLogin = ()=>{
         navigate("/login");
     }
     const handleLogOut = ()=>{
         logout();
-        redirectToLogin();
+        //redirect to welcome page, navigate("/") doesnt work, so used window object to do page refresh
+        window.location.href = "/";
     }
     return(
         <nav className="bg-gradient-to-r from-grey-600 to-grey-700 text-black p-3 shadow-lg drop-shadow-md">
