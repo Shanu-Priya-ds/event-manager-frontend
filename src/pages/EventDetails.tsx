@@ -38,62 +38,109 @@ function EventDetails() {
     }
 
     return (
-        <div className="m-3">
-            <h1 className="pb-3 font-bold text-2xl">{event.title}</h1>
+        <div className="min-h-screen bg-white">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 className="text-4xl font-bold text-gray-900 mb-8">{event.title}</h1>
 
-            {event.imageUrl && <img src={event.imageUrl} alt={event.title}
-                style={{ maxWidth: "100%", height: "auto" }} />}
+                {event.imageUrl && (
+                    <img
+                        src={event.imageUrl}
+                        alt={event.title}
+                        className="w-full h-96 object-cover rounded-xl mb-8 shadow-lg"
+                    />
+                )}
 
-            <p className="p-3">{event.description}</p>
+                <p className="text-lg text-gray-600 mb-12">{event.description}</p>
 
+                {/* Event Details Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 className="text-sm font-semibold text-gray-900 mb-4">Event Information</h3>
 
-            <div>
-                <div className="flex gap-1">
-                    <MapPin className="w-3 h-3 self-center" />
-                    <p> Venue: {event.venue}</p>
-                </div>
-                <div className="flex gap-1">
-                    <Calendar className="w-3 h-3 self-center" />
-                    <p> Date: {new Date(event.dateTime).toLocaleDateString()}</p>
-                </div>
-                <div className="flex gap-1">
-                    <Clock className="w-3 h-3 self-center" />
-                    <p> Time: {new Date(event.dateTime).toLocaleTimeString()}</p>
-                </div>
-                <div className="flex gap-1">
-                    <Users className="w-3 h-3 self-center" />
-                    <p> Capacity: {event.attendeeCount} / {event.capacity}</p>
-                </div>
-                <div className="flex gap-1">
-                    <User className="w-3 h-3 self-center" />
+                        <div className="space-y-4">
+                            <div className="flex gap-3 items-start">
+                                <MapPin className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-xs font-medium text-gray-500 uppercase">Venue</p>
+                                    <p className="text-gray-900 font-medium">{event.venue}</p>
+                                </div>
+                            </div>
 
-                    <p> Organizer: {event.organizerName}</p>
-                </div>
-            </div>
+                            <div className="flex gap-3 items-start">
+                                <Calendar className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-xs font-medium text-gray-500 uppercase">Date</p>
+                                    <p className="text-gray-900 font-medium">{new Date(event.dateTime).toLocaleDateString()}</p>
+                                </div>
+                            </div>
 
-            {isOrganizer ? (
-                <>
-                    <h3>Attendees ({event.attendeeCount})</h3>
-                    {event.attendees && event.attendees.length > 0 ? (
-                        <ul>
-                            {event.attendees.map(attendee => (
-                                <li key={attendee.userId}>{attendee.username} ({attendee.email})</li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No attendees yet</p>
-                    )}
-                    <div>
-                        <button style={{ marginRight: "10px" }}>Edit Event</button>
-                        <button style={{ backgroundColor: "red", color: "white" }}>Delete Event</button>
+                            <div className="flex gap-3 items-start">
+                                <Clock className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-xs font-medium text-gray-500 uppercase">Time</p>
+                                    <p className="text-gray-900 font-medium">{new Date(event.dateTime).toLocaleTimeString()}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-3 items-start">
+                                <Users className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-xs font-medium text-gray-500 uppercase">Capacity</p>
+                                    <p className="text-gray-900 font-medium">{event.attendeeCount} / {event.capacity}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-3 items-start">
+                                <User className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-xs font-medium text-gray-500 uppercase">Organizer</p>
+                                    <p className="text-gray-900 font-medium">{event.organizerName}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </>
-            ) : (
-                <button className=" m-2 bg-gray-300 cursor-pointer text-sm rounded-md px-2 py-0.5"
-                    onClick={handleRegister}>
-                    {isAttendee ? "Registered ✓" : "Register"}
-                </button>
-            )}
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col">
+                        {isOrganizer ? (
+                            <div className="space-y-4">
+                                <button className="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 cursor-pointer">
+                                    Edit Event
+                                </button>
+                                <button className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 cursor-pointer">
+                                    Delete Event
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={handleRegister}
+                                className="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 cursor-pointer text-lg"
+                            >
+                                {isAttendee ? "✓ Registered" : "Register"}
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* Attendees Section */}
+                {isOrganizer && (
+                    <div className="bg-gray-50 rounded-xl p-8 border border-gray-200">
+                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Attendees ({event.attendeeCount})</h3>
+                        {event.attendees && event.attendees.length > 0 ? (
+                            <div className="space-y-2">
+                                {event.attendees.map(attendee => (
+                                    <div key={attendee.userId} className="flex justify-between items-center py-3 border-b border-gray-200 last:border-b-0">
+                                        <p className="font-medium text-gray-900">{attendee.username}</p>
+                                        <p className="text-gray-600 text-sm">{attendee.email}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-600 text-center py-8">No attendees yet</p>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

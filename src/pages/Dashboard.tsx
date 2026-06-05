@@ -55,27 +55,64 @@ function Dashboard() {
 };
 
 
-    return (<>
-        <div className="flex justify-end m-4 ">
-            <button className="bg-gray-400 text-xs cursor-pointer text-white px-1 py-1 rounded"
-            onClick={() => { setEditingEvent(null); setIsOpen(true); }}>Add Event</button>
-            {isOpen &&
-                <Dialog isOpen={true} title={editingEvent ? "Edit Event" : "Create Event"}
-                    onClose={handleCloseDialog}
-                    children={<EventForm onEventSaved={handleEventSaved} 
-                    event={editingEvent} onClose={handleCloseDialog} />}>
+    return (
+        <div className="min-h-screen bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="flex justify-between items-center mb-12">
+                    <div>
+                        <h1 className="text-4xl font-bold text-gray-900 mb-2">My Events</h1>
+                        <p className="text-lg text-gray-600">Manage and organize your events</p>
+                    </div>
+                    <button
+                        className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 cursor-pointer"
+                        onClick={() => { setEditingEvent(null); setIsOpen(true); }}
+                    >
+                        + Add Event
+                    </button>
+                </div>
 
-                </Dialog>
-            }
+                {isOpen && (
+                    <Dialog
+                        isOpen={true}
+                        title={editingEvent ? "Edit Event" : "Create Event"}
+                        onClose={handleCloseDialog}
+                        children={
+                            <EventForm
+                                onEventSaved={handleEventSaved}
+                                event={editingEvent}
+                                onClose={handleCloseDialog}
+                            />
+                        }
+                    />
+                )}
+
+                {myEvents && myEvents.length > 0 ? (
+                    <div className="flex flex-wrap gap-6">
+                        {myEvents.map(eventModel => (
+                            <div key={eventModel._id}>
+                                <EventCard
+                                    key={eventModel._id}
+                                    onEdit={() => handleEdit(eventModel)}
+                                    onDeleted={() => handleDeleted(eventModel._id)}
+                                    eventModel={eventModel}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-12">
+                        <p className="text-lg text-gray-600 mb-6">You haven't created any events yet.</p>
+                        <button
+                            className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 cursor-pointer"
+                            onClick={() => { setEditingEvent(null); setIsOpen(true); }}
+                        >
+                            Create Your First Event
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
-        <div className="flex flex-wrap gap-3 m-4">
-            {myEvents &&
-                myEvents.map(eventModel => <div key={eventModel._id}>
-                    <EventCard key={eventModel._id} onEdit={() => handleEdit(eventModel)}
-                        onDeleted={() => handleDeleted(eventModel._id)} eventModel={eventModel} />
-                </div>)}
-        </div>
-    </>)
+    )
 }
 
 export default Dashboard;

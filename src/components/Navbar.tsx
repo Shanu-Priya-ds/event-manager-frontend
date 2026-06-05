@@ -21,7 +21,7 @@ function Navbar(){
         redirectToLogin();
     }
     return(
-        <nav className="bg-gradient-to-r from-grey-600 to-grey-700 text-black p-3 shadow-lg">
+        <nav className="bg-gradient-to-r from-grey-600 to-grey-700 text-black p-3 shadow-lg drop-shadow-md">
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
                     <div className="relative w-10 h-10">
