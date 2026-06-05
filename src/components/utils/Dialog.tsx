@@ -16,7 +16,8 @@ function Dialog({ isOpen, onClose, title, children }: DialogInputProps) {
 
             {/* Dialog Container */}
             <div className="fixed inset-0 flex items-center justify-center">
-                <DialogPanel className="w-96 rounded-lg bg-white shadow-lg">
+                <DialogPanel className=" w-full sm:max-w-md
+                     max-h-[90vh] overflow-y-auto rounded-lg bg-white shadow-lg">
                     {/* Header */}
                     <div className="flex justify-between items-center p-4 border-b">
                         <DialogTitle className="text-lg font-semibold">{title}</DialogTitle>

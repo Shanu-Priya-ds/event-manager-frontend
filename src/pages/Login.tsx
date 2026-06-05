@@ -47,8 +47,9 @@ function Login() {
                 <form className="bg-white border border-gray-200 rounded-xl p-6" onSubmit={handleSubmit}>
                     <div className="mb-4 ">
                         <label className="block text-sm font-medium mb-1.5">Email address</label>
-                        <input name="email" className="rounded-l border border-gray-200 px-1"
-                            value={formData.email} onChange={handleFormChange} type="text" placeholder="enter email" />
+                        <input name="email" className="rounded-sm border border-gray-200 px-1"
+                            value={formData.email} onChange={handleFormChange} type="text" 
+                            placeholder="Enter email" />
 
                     </div>
                     <div className="mb-5">
@@ -57,7 +58,8 @@ function Login() {
                         </div>
                         <input type="password" value={formData.password}
                             onChange={handleFormChange} name="password"
-                            className="rounded-l border border-gray-200 px-1" placeholder="enter password" />
+                            className="rounded-sm border border-gray-200 px-1" 
+                            placeholder="Enter password" />
                     </div>
                     <button type="submit" className="bg-gray-400 cursor-pointer w-full text-white px-1 py-1 rounded" disabled={loading}>{loading ? "Logging in..." : "Sign in"}</button>
                 </form>
