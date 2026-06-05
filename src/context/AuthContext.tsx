@@ -5,8 +5,15 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({children}:{children:ReactNode}){
     const userInLocalStorage = localStorage.getItem("user")
-    const[user, setUser]  = useState<User | null>(userInLocalStorage?
-                                                    JSON.parse(userInLocalStorage):null);
+    const parsedUser = userInLocalStorage ? (() => {
+        try {
+            return JSON.parse(userInLocalStorage);
+        } catch {
+            localStorage.removeItem("user");
+            return null;
+        }
+    })() : null;
+    const[user, setUser]  = useState<User | null>(parsedUser);
     const[token, setToken] = useState<string|null>(localStorage.getItem("token"));
 
     function logout(){
