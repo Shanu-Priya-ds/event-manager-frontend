@@ -16,13 +16,13 @@ function Home() {
 
     const events = data ? data as EventModel[] : [];
 
-    return (<>
-        All events
-        <div className="flex flex-wrap gap-3 m-4">
+    return (<div className="flex gap-2 m-4 flex-col">
+         All events
+        <div className="flex flex-wrap gap-3 ">
 
             {events?.map(item => <EventCard key={item._id} eventModel={item} />)}
         </div>
-    </>)
+    </div>)
 }
 
 export default Home;
