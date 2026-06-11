@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import useApi from "../hooks/useApi";
 import type { LoginResponse } from "../types/types";
 import { Calendar } from "lucide-react";
+import siGoogleImg from "../assets/web_dark_rd_SI@1x.png";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -21,6 +22,13 @@ function Login() {
         successMsg: "You are logged In now."
     });
 
+    // const {execute: redirectToGoogleAuth} = useApi({
+    //     url:"/auth/google",
+    //     method: "GET",
+    //     autoFetch: false,
+    //     successMsg: "You are logged In now."
+    // }) Axios and fetch are HTTP clients — they do not know how to handle a browser redirect to an external site like Google. Only the browser itself can do that.
+
     async function handleSubmit(e: SyntheticEvent) {
         e.preventDefault();
 
@@ -37,6 +45,10 @@ function Login() {
         setFormData(prev => ({ ...prev, [name]: value }))
     }
 
+    async function handleGoogleLogin(){
+       // redirectToGoogleAuth();
+        window.location.href = 'http://localhost:3080/api/auth/google';
+    }
     return (
         <div className="min-h-screen bg-white flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
             <div className="w-full max-w-md">
@@ -53,8 +65,8 @@ function Login() {
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">Event Manager</h1>
                     <p className="text-lg text-gray-600">Welcome back</p>
                 </div>
-
-                <form className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm" onSubmit={handleSubmit}>
+                <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+                <form  onSubmit={handleSubmit}>
                     <div className="mb-6">
                         <label className="block text-sm font-semibold text-gray-900 mb-2">Email address</label>
                         <input
@@ -90,6 +102,13 @@ function Login() {
                         {loading ? "Signing in..." : "Sign in"}
                     </button>
                 </form>
+                <div className="flex flex-col items-center justify-center">
+                    <p>or</p>
+                    <button type="button" onClick={handleGoogleLogin}>
+                        <img src={siGoogleImg}/>
+                    </button>
+                </div>
+                </div>
 
                 <p className="text-center text-gray-600 mt-6">
                     Don't have an account?{" "}

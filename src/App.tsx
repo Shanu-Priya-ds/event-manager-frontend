@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import EventDetails from './pages/EventDetails';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import AuthCallback from './components/AuthCallback';
 function App() {
   return (
     <>
@@ -19,7 +20,7 @@ function App() {
         <Route path="/" element={<Welcome/>} />
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
-          
+        <Route path="/auth/callback" element={<AuthCallback/>}/>          
         <Route element={<ProtectedRoute/>}>
           <Route path="/home" element={<Home/>}/>
           <Route path="/myRegistrations" element={<MyRegistrations/>}/>

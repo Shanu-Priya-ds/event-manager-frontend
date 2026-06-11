@@ -6,7 +6,7 @@ function Navbar(){
 
     const { pathname } = useLocation();
 
-    const pagesToHide =["/login","/register","/"];
+    const pagesToHide =["/login","/register","/","/auth/callback"];
     //hide navbar for login, register, and welcome
     if(pagesToHide.includes(pathname)) return null;
 
