@@ -4,6 +4,7 @@ import useApi from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import type { LoginResponse } from "../types/types";
 import { Calendar } from "lucide-react";
+import suGoogleImg from "../assets/web_dark_rd_SU@1x.png"
 
 function Register() {
 
@@ -39,6 +40,11 @@ function Register() {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     }
+
+   function handleGoogleLogin(){
+       window.location.href = 'http://localhost:3080/api/auth/google';
+   }
+
     return (
         <div className="min-h-screen bg-white flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
             <div className="w-full max-w-md">
@@ -55,8 +61,8 @@ function Register() {
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">Event Manager</h1>
                     <p className="text-lg text-gray-600">Create your account</p>
                 </div>
-
-                <form className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm" onSubmit={handleFormSubmit}>
+                <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm" >
+                <form onSubmit={handleFormSubmit}>
                     <div className="mb-6">
                         <label className="block text-sm font-semibold text-gray-900 mb-2">Username</label>
                         <input
@@ -113,7 +119,13 @@ function Register() {
                         Create account
                     </button>
                 </form>
-
+                <div className="flex flex-col items-center justify-center">
+                    <p>or</p>
+                    <button type="button" onClick={handleGoogleLogin}>
+                        <img src={suGoogleImg}/>
+                    </button>
+                </div>
+                </div>
                 <p className="text-center text-gray-600 mt-6">
                     Already have an account?{" "}
                     <Link to="/login" className="text-gray-800 font-semibold hover:text-gray-600 transition-colors duration-200">Sign in</Link>

@@ -10,6 +10,7 @@ function AuthCallback(){
     useEffect(()=>{
         const token = searchParams.get("token");
         const user = searchParams.get("user");
+        console.log(user);
         if(token){
             setAuthData(JSON.parse(user?user:""), token);
             navigate("/dashboard", {replace:true});//replace true doesnt add up in the URL history, to avoid back button navigat to callback url

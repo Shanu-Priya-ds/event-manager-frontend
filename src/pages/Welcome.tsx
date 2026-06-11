@@ -4,9 +4,9 @@ import { Calendar, Users, Zap, ArrowRight, Check } from "lucide-react";
 
 function Welcome() {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, token } = useAuth();
 
-    if (user) {
+    if (user && token) {
         navigate("/home");
         return null;
     }

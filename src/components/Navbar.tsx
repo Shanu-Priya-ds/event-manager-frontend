@@ -6,21 +6,21 @@ function Navbar(){
 
     const { pathname } = useLocation();
 
-    const pagesToHide =["/login","/register","/","/auth/callback"];
-    //hide navbar for login, register, and welcome
-    if(pagesToHide.includes(pathname)) return null;
-
     const navigate = useNavigate();
     const {logout, user} = useAuth();
 
+
+    const pagesToHide =["/login","/register","/","/auth/callback"];
+    //hide navbar for login, register, and welcome
+    if(pagesToHide.includes(pathname)) return null;
 
     const redirectToLogin = ()=>{
         navigate("/login");
     }
     const handleLogOut = ()=>{
         logout();
-        //redirect to welcome page, navigate("/") doesnt work, so used window object to do page refresh
-        window.location.href = "/";
+       // navigate("/"); 
+       window.location.href="/";
     }
     return(
         <nav className="bg-gradient-to-r from-grey-600 to-grey-700 text-black p-3 shadow-lg drop-shadow-md">

@@ -17,16 +17,14 @@ function App() {
       <Toaster position="bottom-right" />
       <Navbar/>
       <Routes>
-        <Route path="/" element={<Welcome/>} />
+        <Route index element={<Welcome/>} />
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/auth/callback" element={<AuthCallback/>}/>          
-        <Route element={<ProtectedRoute/>}>
-          <Route path="/home" element={<Home/>}/>
-          <Route path="/myRegistrations" element={<MyRegistrations/>}/>
-          <Route path="/dashboard" element={<Dashboard></Dashboard>}/>
-          <Route path="/eventDetails/:id" element={<EventDetails/>}/>
-        </Route>
+        <Route path="/auth/callback" element={<AuthCallback/>}/>
+        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+        <Route path="/myRegistrations" element={<ProtectedRoute><MyRegistrations/></ProtectedRoute>}/>
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
+        <Route path="/eventDetails/:id" element={<ProtectedRoute><EventDetails/></ProtectedRoute>}/>
       </Routes>
     </>
   )

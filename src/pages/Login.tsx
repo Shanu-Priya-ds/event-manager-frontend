@@ -45,7 +45,7 @@ function Login() {
         setFormData(prev => ({ ...prev, [name]: value }))
     }
 
-    async function handleGoogleLogin(){
+    function handleGoogleLogin(){
        // redirectToGoogleAuth();
         window.location.href = 'http://localhost:3080/api/auth/google';
     }
