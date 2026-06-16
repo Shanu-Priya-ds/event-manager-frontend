@@ -47,7 +47,7 @@ function Login() {
 
     function handleGoogleLogin(){
        // redirectToGoogleAuth();
-        window.location.href = 'http://localhost:3080/api/auth/google';
+        window.location.href = import.meta.env.VITE_GOOGLE_LOGIN_URL;
     }
     return (
         <div className="min-h-screen bg-white flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">

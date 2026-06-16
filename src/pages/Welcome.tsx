@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Calendar, Users, Zap, ArrowRight, Check } from "lucide-react";
+import { useEffect } from "react";
 
 function Welcome() {
     const navigate = useNavigate();
     const { user, token } = useAuth();
 
+  useEffect(() => {
     if (user && token) {
         navigate("/home");
-        return null;
     }
+}, [user, token, navigate]);
 
     const features = [
         {

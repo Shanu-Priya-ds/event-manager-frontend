@@ -42,7 +42,7 @@ function Register() {
     }
 
    function handleGoogleLogin(){
-       window.location.href = 'http://localhost:3080/api/auth/google';
+        window.location.href = import.meta.env.VITE_GOOGLE_LOGIN_URL;
    }
 
     return (
